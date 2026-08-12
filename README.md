@@ -1,77 +1,91 @@
 # Enterprise AI Operations Assistant
 
-A Retrieval-Augmented Generation (RAG) based AI assistant for answering enterprise HR policy questions using a company knowledge base.
+A RAG-based AI assistant that answers HR policy questions from an internal
+HR policy document.
 
-The application combines document processing, embeddings, vector search, LLM-based response generation, FastAPI, and a Streamlit web interface to provide grounded answers from enterprise policy documents.
+## What I built
 
----
+I built this project to understand how an enterprise AI assistant can retrieve
+relevant information from company documents before generating an answer.
 
-## Project Overview
+The application:
+- Takes a question from the user
+- Converts the question into an embedding
+- Searches Pinecone for relevant HR policy content
+- Sends the retrieved context to Gemini
+- Displays the answer through a Streamlit interface
 
-Enterprise employees often need quick answers to questions related to company policies and procedures.
+## Tech Stack
 
-This project demonstrates how Generative AI and RAG can be used to build an enterprise knowledge assistant that retrieves relevant information from internal documents before generating an answer.
+Python
+Gemini
+Pinecone
+RAG
+FastAPI
+Streamlit
+LangChain
 
-The assistant is currently configured with an HR policy knowledge base.
+## How it works
 
-Example questions include:
+User Question
+     ↓
+Embedding
+     ↓
+Pinecone similarity search
+     ↓
+Relevant HR policy
+     ↓
+Gemini
+     ↓
+Answer
 
-- How many paid leave days are employees entitled to?
-- What is the procedure for taking 5 days off?
-- How should emergency leave be communicated?
+## Example
 
----
+Question:
+"How many paid leave days are employees entitled to?"
 
-## Key Features
+The assistant retrieves the relevant HR policy and returns the answer.
 
-- Document loading and text processing
-- Text chunking for knowledge retrieval
-- Semantic embeddings
-- Vector storage using Pinecone
-- Similarity-based document retrieval
-- Retrieval-Augmented Generation (RAG)
-- Gemini-powered answer generation
-- FastAPI backend
-- Streamlit web interface
-- Example questions for users
-- Loading and error handling
-- Out-of-scope question handling
-- Grounded responses based on the available HR policy
+## Run locally
 
----
+Create a virtual environment:
 
-## Architecture
+python -m venv .venv
 
-```text
-                    HR Policy Document
-                           |
-                           v
-                  Document Processing
-                           |
-                           v
-                    Text Chunking
-                           |
-                           v
-                    Gemini Embeddings
-                           |
-                           v
-                       Pinecone
-                    Vector Database
-                           |
-                           |
-User ---> Streamlit ---> FastAPI
-                           |
-                           v
-                    RAG Retrieval
-                           |
-                           v
-                  Relevant HR Context
-                           |
-                           v
-                         Gemini
-                           |
-                           v
-                    Generated Answer
-                           |
-                           v
-                      Streamlit UI
+Activate it:
+
+.\.venv\Scripts\Activate.ps1
+
+Install dependencies:
+
+pip install -r requirements.txt
+
+Create a `.env` file:
+
+GEMINI_API_KEY=your_key
+PINECONE_API_KEY=your_key
+
+Run the backend:
+
+uvicorn main:app --reload
+
+Run the frontend:
+
+streamlit run streamlit_app.py
+
+## Project Structure
+
+app/
+documents/
+tests/
+main.py
+streamlit_app.py
+requirements.txt
+
+## What I learned
+
+- Building a basic RAG pipeline
+- Working with embeddings and vector search
+- Integrating Gemini with an application
+- Building APIs using FastAPI
+- Creating an AI interface using Streamlit
